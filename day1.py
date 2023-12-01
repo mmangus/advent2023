@@ -12,7 +12,10 @@ NUMBER_WORDS = [
     "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"
 ]
 # to easily concatenate the digits for each line, this maps strings to strings
-WORD_MAPPER: dict[str, str] = dict(zip(NUMBER_WORDS, map(str, range(1, 10))))
+WORD_TO_DIGIT = {
+    word: str(digit)
+    for word, digit in zip(NUMBER_WORDS, range(1, 10))
+}
 # a trick to capture overlapping patterns like "oneight" - wrap the pattern in
 #  a lookahead capture group
 NUMBER_MATCHER = re.compile(r"(?=(\d|" + "|".join(NUMBER_WORDS) + "))")
@@ -22,7 +25,7 @@ def force_digits(string: str) -> str:
     """Change words into digits, and leave existing digits alone"""
     if len(string) == 1:  # all 1-char matches are already digits
         return string
-    return WORD_MAPPER[string]
+    return WORD_TO_DIGIT[string]
 
 
 def parse(input_: str) -> int:
