@@ -18,7 +18,7 @@ WORD_TO_DIGIT = {
 }
 # a trick to capture overlapping patterns like "oneight" - wrap the pattern in
 #  a lookahead capture group
-NUMBER_MATCHER = re.compile(r"(?=(\d|" + "|".join(NUMBER_WORDS) + "))")
+NumberPattern = re.compile(r"(?=(\d|" + "|".join(NUMBER_WORDS) + "))")
 
 
 def force_digits(string: str) -> str:
@@ -34,7 +34,7 @@ def parse(input_: str) -> int:
     """
     sum_ = 0
     for line in input_.split("\n"):
-        numbers = re.findall(NUMBER_MATCHER, line)
+        numbers = NumberPattern.findall(line)
         if len(numbers) == 0:
             continue
         sum_ += int(
